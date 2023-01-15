@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -11,9 +12,9 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    content = models.TextField()
+    content = models.TextField() 
     timestamp_created = models.DateTimeField(auto_now_add=True)
-    timestamp_edited = models.DateTimeField(auto_now=True)
+    timestamp_edited = models.DateTimeField(default=datetime.datetime.now())
     author = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
     liked_by = models.ManyToManyField(User, related_name="likes", blank=True, null=True)
 

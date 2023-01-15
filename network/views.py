@@ -1,3 +1,4 @@
+import datetime
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -95,7 +96,7 @@ def index(request):
         return HttpResponseRedirect(reverse("index"))
 
     # Query for all post objects
-    all_posts = Post.objects.all()
+    all_posts = Post.objects.all().order_by("-timestamp_edited")
 
     # Pagination (show 10 posts per page)
     paginator = Paginator(all_posts, 10)
@@ -135,6 +136,7 @@ def edit_post(request, post_id):
         edited_post = json.loads(request.body)
         if edited_post.get("content").strip() != "":
             post.content = edited_post["content"]
+            post.timestamp_edited = datetime.datetime.now()
             post.save()
             return JsonResponse({"message": "Post updated successfully."}, status=201)
         else:
@@ -177,7 +179,7 @@ def like_post(request, post_id):
 def get_profile(request, username):
     # Query for user and assosiated posts
     user = User.objects.get(username=username)
-    user_posts = Post.objects.filter(author=user)
+    user_posts = Post.objects.filter(author=user).order_by("-timestamp_edited")
     post_count = user_posts.count()
 
     # Pagination (show 10 posts per page)
