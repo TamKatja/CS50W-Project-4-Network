@@ -1,0 +1,73 @@
+{% load static %}
+
+<!--Following modal-->
+<div id="following-modal" class="modal-container">
+    <div class="modal-body">
+        {% if following %}
+            <h1>Following ({{ following_count }})</h1>
+            {% for profile in following %}
+                <a href="{% url 'profile' profile.username %}">
+                    <div class="following-profile-wrapper">
+                        <img class="profile-img" src="{{ profile.profile_picture.url }}">
+                        <h3 class="profile-name">
+                            {{ profile.first_name }} {{ profile.last_name }}
+                            <span class="profile-username"> @{{ profile.username }}</span>
+                        </h3>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <div id="none-following-msg"> 
+                <div>{{ profile_data.first_name }} is not following any profiles.</div>
+            </div>
+        {% endif %}
+        <button id="modal-close-btn" data-modal-close="following-modal">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+</div>
+
+<!--Followers Modal-->
+<div id="followers-modal" class="modal-container">
+    <div class="modal-body">
+        {% if followers %}
+            <h1>Followers ({{ followers_count }})</h1>
+            {% for profile in followers %}
+                <a href="{% url 'profile' profile.username %}">
+                    <div class="followers-profile-wrapper">
+                        <img class="profile-img" src="{{ profile.profile_picture.url }}">
+                        <h3 class="profile-name">
+                            {{ profile.first_name }} {{ profile.last_name }}
+                            <span class="profile-username"> @{{ profile.username }}</span>
+                        </h3>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <div id="none-following-msg"> 
+                <div>{{ profile_data.first_name }} has no followers.</div>
+            </div>
+        {% endif %}
+        <button id="modal-close-btn" data-modal-close="followers-modal">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+</div>
+
+<!--Profile Picture Upload Modal-->
+{% if profile_data == request.user %}
+    <div id="profile-picture-modal" class="modal-container">
+        <div class="modal-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in upload_profile_picture %}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="update-profile-picture">
+            </form>
+            <button id="modal-close-btn" data-modal-close="profile-picture-modal">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+    </div>
+{% endif %}

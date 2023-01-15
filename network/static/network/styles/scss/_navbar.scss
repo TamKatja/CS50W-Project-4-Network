@@ -1,0 +1,53 @@
+// Styles for navbar in layout.html
+
+@use "config.scss";
+
+nav {
+    margin: 2rem;
+
+    .nav-link {
+        align-items: center;
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+    
+    .nav-link:hover {
+        background-color: config.$custom-grey;
+        border-radius: 2rem;
+    }
+    
+    .current-user {
+        line-height: 1.5;
+        padding: 2rem 1rem;
+    
+        h2 {
+            color: config.$custom-blue;
+        }
+    
+        h3 {
+            color: grey;
+        }
+    }
+}
+
+// Styles for mobile layout
+
+@media (max-width: 800px) {
+    nav {
+        margin: 2rem 1rem 2rem 1rem;
+
+        .nav-link {
+            justify-content: center;
+        }
+    
+        .nav-link h2 {
+            display: none;
+        }
+    
+        .current-user {
+            display: none;
+        }
+    }
+}

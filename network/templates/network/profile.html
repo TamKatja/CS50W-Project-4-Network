@@ -1,0 +1,56 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <h1 class="page-title">
+        {{ profile_data.first_name }} {{ profile_data.last_name }}
+        <span class="post-count">({{ post_count }} Post{{ post_count|pluralize:"s"}})</span>
+    </h1>
+    <header class="profile-header">
+        <div class="profile-cover">
+            <img id="user-profile-picture" class="profile-img" src="{{ profile_data.profile_picture.url }}">
+        </div>
+        <div class="profile-details">
+            <h1 class="profile-name">
+                {{ profile_data.first_name }} {{ profile_data.last_name }}
+            </h1>
+            <div class="profile-username">@{{ profile_data.username }}</div>
+            <div class="profile-join-date">
+                <span class="material-icons-round">calendar_month</span>
+                Joined {{ profile_data.date_joined|date:"SHORT_DATE_FORMAT" }}
+            </div>
+            <div class="profile-following-activity">
+                <button id="profile-following-count">
+                    <strong>{{ following_count }}</strong> Following
+                </button>
+                <button id="profile-followers-count">
+                    <strong>{{ followers_count }}</strong> Followers
+                </button>
+                {% if user.is_authenticated %}
+                    {% if profile_data != user %}
+                        {% if user_following_profile %}
+                            <form class="follow" method="POST">
+                                {% csrf_token %}
+                                <input id="follow-btn" name="unfollow" type="submit" value="Unfollow">
+                            </form>
+                        {% else %}
+                            <form class="follow" method="POST">
+                                {% csrf_token %}
+                                <input id="follow-btn" name="follow" type="submit" value="Follow">
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    {% include "network/modals.html" %}
+    {% include "network/posts_template.html" %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/main.js' %}"></script>
+    <script src="{% static 'network/profile.js' %}"></script>
+    <script src="{% static 'network/posts.js' %}"></script>
+{% endblock %}

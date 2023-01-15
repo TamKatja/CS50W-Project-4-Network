@@ -1,0 +1,31 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                <input type="text" name="username" 
+                placeholder="Username" required autocomplete="off">
+            </div>
+            <div class="form-field">
+                <input type="password" name="password" 
+                placeholder="Password" required autocomplete="off">
+            </div>
+            <div class="form-field">
+                <input id="login-btn" type="submit" value="Login">
+            </div>
+            <!--Display error message if invalid username or password-->
+            {% if message %}
+                <div class="form-field error-msg">{{ message }}</div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/main.js' %}"></script>
+{% endblock %}

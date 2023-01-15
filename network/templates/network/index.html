@@ -1,0 +1,27 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <h1 class="page-title">All Posts</h1>
+    {% if user.is_authenticated %}
+        <form method="POST" id="new-post-form">
+            {% csrf_token %}
+            <div class="new-post-container">
+                <a href="{% url 'profile' user %}">
+                    <img class="profile-img" src="{{ user.profile_picture.url }}">
+                </a>
+                <textarea name="new-post-content" id="new-post-content-field" type="text" placeholder="What's happening?" required autocomplete="off"></textarea>
+            </div>
+            <div class="post-btn-wrapper">
+                <input id="post-btn" type="submit" value="Post" disabled>
+            </div>
+        </form>
+    {% endif %}
+    {% include "network/posts_template.html" %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/main.js' %}"></script>
+    <script src="{% static 'network/posts.js' %}"></script>
+{% endblock %}

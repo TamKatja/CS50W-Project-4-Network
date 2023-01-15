@@ -1,0 +1,99 @@
+{% load static %}
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="post-container">
+            <div class="post-header">
+                <div>
+                    <a href="{% url 'profile' post.author %}">
+                        <img class="post-author-img" src="{{ post.author.profile_picture.url }}" width="50px">
+                    </a>
+                </div>
+                <div class="post-author">
+                    <a href="{% url 'profile' post.author %}">
+                        {{ post.author.first_name }} {{ post.author.last_name }}
+                        <span> @{{ post.author }}</span>
+                    </a>
+                    {% if post.timestamp_created == post.timestamp_edited %}
+                        <div class="post-timestamp">Posted: {{ post.timestamp_created }}</div>
+                    {% else %}
+                        <div class="post-timestamp">Last edited: {{ post.timestamp_edited }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="post-content-container">
+                <p id="post-content" data-id="{{ post.id }}">{{ post.content }}</p>
+                <textarea id="edit-post-content" data-id="{{ post.id }}"></textarea>
+            </div>
+            <div class="post-likes">
+                <span class="material-icons-round">thumb_up</span>
+                <span id="post-like-count" data-id="{{ post.id }}">{{ post.like_count }}</span>
+            </div>
+            <hr>
+            {% if post.author == request.user %}
+                <div class="post-response">
+                    <button id="edit-post-btn" data-id="{{ post.id }}">
+                        <span class="material-icons-round">edit_note</span>Edit
+                    </button>
+                    <button id="save-post-btn" data-id="{{ post.id }}">
+                        <span class="material-icons-round">save</span>Save
+                    </button>
+                </div>
+            {% else %}
+                <div class="post-response">
+                    <button id="like-post-btn" data-id="{{ post.id }}">
+                        {% if not user.is_authenticated %}
+                            <a href="{% url 'login' %}">
+                                <span class="material-icons-round">favorite_border</span>
+                            </a>
+                        {% else %}
+                            {% if request.user in post.liked_by.all %}
+                                <span class="material-icons-round">favorite</span>
+                            {% else %}
+                                <span class="material-icons-round">favorite_border</span>
+                            {% endif %}
+                        {% endif %}
+                    </button>
+                </div>
+            {% endif %}
+        </div>    
+    {% endfor %}
+    <!--Pagination-->
+    <div class="pagination-grid">
+        <div class="page-links">
+            {% if posts.has_previous %}
+                <div class="first-page">
+                    <a href="?page=1">
+                        <button class="page-btn">&laquo; First</button>
+                    </a>
+                </div>
+                <div class="previous-page">
+                    <a href="?page={{ posts.previous_page_number }}">
+                        <button class="page-btn">Previous</button>
+                    </a>
+                </div>
+            {% endif %}
+            <div class="page-number">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</div>
+            {% if posts.has_next %}
+                <div class="next-page">
+                    <a href="?page={{ posts.next_page_number }}">
+                        <button class="page-btn">Next</button>
+                    </a>
+                </div>
+                <div class="last-page">
+                    <a href="?page={{ posts.paginator.num_pages }}">
+                        <button class="page-btn">Last &raquo;</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    <!--No posts to render-->
+    <a href="{% url 'index' %}">
+        <div class="post-container">
+            <span class="empty-feed-msg">Oops, no posts here!</span>
+            <span class="material-icons-round">sentiment_dissatisfied</span>
+        </div>
+    </a>
+{% endif %}

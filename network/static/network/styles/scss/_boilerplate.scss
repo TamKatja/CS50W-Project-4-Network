@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    color: black;
+    font-family: sans-serif;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+a {
+    text-decoration: none;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}

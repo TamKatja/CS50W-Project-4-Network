@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Social Network{% endblock %}</title>
+        <!--Load icons-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+        <!--Load CSS styles-->
+        <link href="{% static 'network/styles/styles.css' %}" rel="stylesheet">
+        <!--Load JavaScript-->
+        {% block script %}{% endblock %}
+    </head>
+    <body>
+        <div class="loader"></div>
+        <div class="grid-container">
+            <nav class="grid-col">
+                <!--Navigation links if current user logged in-->
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'index' %}">
+                        <span class="material-icons-round">home</span>
+                        <h2>All Posts</h2>
+                    </a>
+                        </span>
+                    <a class="nav-link" href="{% url 'profile' user.username %}">
+                        <span class="material-icons-round">mood</span>
+                        <h2>Profile</h2>
+                    </a>
+                    <a class="nav-link" href="{% url 'following' %}">
+                        <span class="material-icons-round">tag</span>
+                        <h2>Following</h2>
+                    </a>
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <span class="material-icons-round">logout</span>
+                        <h2>Log Out</h2>
+                    </a>
+                    <div class="current-user">
+                        <a href="{% url 'profile' user.username %}">
+                            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                            <h3>@{{ user.username }}</h3>
+                        </a>
+                    </div>
+                <!--Navigation links if current user not logged in-->
+                {% else %}
+                    <a class="nav-link" href="{% url 'index' %}">
+                        <span class="material-icons-round">home</span>
+                        <h2>All Posts</h2>
+                    </a>
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <span class="material-icons-round">person_add</span>
+                        <h2>Register</h2>
+                    </a>
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <span class="material-icons-round">login</span>
+                        <h2>Login</h2>
+                    </a>
+                {% endif %}
+            </nav>
+            <main class="grid-col">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
+    </body>
+</html>

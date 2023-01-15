@@ -1,0 +1,76 @@
+// Styles for layout.html and general application layout
+
+@use "config.scss";
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+}
+
+main {
+    background-color: config.$custom-grey;
+    border: 1px solid config.$custom-grey;
+    height: 100%;
+    width: 100%;
+}
+
+.page-title {
+    background-color: white;
+    border-bottom: 1px solid config.$custom-grey;
+    font-size: 1.5rem;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.error-msg {
+    color: config.$error;
+}
+
+// Styles for page loading
+
+.loader {
+    align-items: center;
+    background-color: white;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transition: opacity 0.75s, visibility 0.75s;
+    width: 100vw;
+    z-index: 10;
+}
+
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader::after {
+    animation: loading 0.75s ease infinite;
+    border: 10px solid config.$custom-grey;
+    border-radius: 50%;
+    border-top-color: config.$custom-blue;
+    content: "";
+    height: 75px;
+    width: 75px;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+// Styles for mobile layout
+
+@media (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: 100px 1fr;
+    }
+}

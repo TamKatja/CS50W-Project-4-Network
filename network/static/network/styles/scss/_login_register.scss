@@ -1,0 +1,78 @@
+// Styles for login.html and register.html
+
+@use "config";
+
+main:has(.login-container),
+main:has(.register-container) {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.login-container,
+.register-container {
+    align-items: center;
+    background-color: white;
+    border: 1px solid config.$custom-grey;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 2.5rem;
+    width: 60%;
+
+    form {
+        margin: 2rem 0rem;
+        width: 100%;
+
+        .form-field {
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+
+            :focus-within {
+                transform: scale(1.025, 1.025);
+            }
+
+            input {
+                border: 1px solid config.$custom-grey;
+                border-radius: 0.25rem;;
+                padding: 0.5rem;
+                transition: all 0.5s;
+                width: 100%;
+            }
+    
+            :focus {
+                border-color: config.$custom-blue;
+            }
+
+            ::placeholder {
+                color: rgb(170, 170, 170);
+            }  
+        }
+    }
+    
+    a {
+        color: config.$custom-blue;
+    }
+}
+
+#login-btn,
+#register-btn {
+    background-color: config.$custom-blue;
+    color: white;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+#login-btn:hover,
+#register-btn:hover {
+        background-color: config.$custom-blue-shaded;
+}
+
+// Styles for mobile layout
+
+@media (max-width: 800px) {
+    .login-container,
+    .register-container {
+        width: 90%;
+    }
+}

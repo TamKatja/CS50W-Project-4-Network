@@ -1,0 +1,89 @@
+// Styles for profile.html
+
+@use "config";
+
+.post-count {
+    display: block;
+    color: grey;
+    font-size: 0.875rem;
+    font-weight: normal;
+    margin-top: 0.375rem;
+}
+
+.profile-header {
+
+    .profile-cover {
+        background-color: config.$custom-blue;
+        height: 100px;
+        position: relative;
+
+        .profile-img {
+            border: 1px solid config.$custom-grey;
+            border-radius: 50px;
+            cursor: pointer;
+            height: 100px;
+            left: 2rem;
+            margin-bottom: 0.5rem;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+            top: 1rem;
+            width: 100px;
+        }
+    }
+
+    .profile-details {
+        background-color: white;
+        line-height: 1.5;
+        padding: 1.5rem;
+
+        .profile-username {
+            color: grey;
+        }
+
+        .profile-join-date {
+            align-items: center;
+            color: grey;
+            display: flex;
+            font-size: 0.875rem;
+            gap: 0.25rem;
+            margin: 0.75rem 0rem;
+
+            span {
+                color: grey;
+                font-size: 0.875rem;
+            }
+        }
+
+        .profile-following-activity {
+            display: flex;
+            gap: 2rem;
+
+            #profile-following-count,
+            #profile-followers-count {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            form.follow {
+                margin-left: auto;
+            }
+
+            #follow-btn {
+                background-color: config.$custom-blue;
+                border: none;
+                border-radius: 0.25rem;
+                color: white;
+                cursor: pointer;
+                font-weight: bold;
+                margin-left: auto;
+                padding: 0.5rem 2rem;
+            }
+
+            #follow-btn:hover {
+                background-color: config.$custom-blue-shaded;
+            }
+        }
+    }
+}
