@@ -15,7 +15,7 @@ A Twitter-like social network that allows users to make text-based posts, follow
 ## User Profile
 ![Social-Network profile](https://user-images.githubusercontent.com/110285021/212527683-499e18c0-352b-423f-af49-c1c0d3091fdc.png)
 
-## Following Modal
+## Followers Modal
 ![Social-Network modal](https://user-images.githubusercontent.com/110285021/212527681-fd962ffd-fb2a-4c67-8b85-aadb29af33d1.png)
 
 ## Edit Posts
